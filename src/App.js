@@ -3,6 +3,12 @@ import LeadList from "./components/LeadList";
 import LeadDetails from "./components/leadDetails";
 import { useEffect, useState } from "react";
 import { findAll, findByPrimaryKey } from "./api/LeadApi";
+import { Grid, Typography } from "@mui/material";
+
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 function App() {
   const [leadList, setLeadList] = useState([]);
@@ -29,21 +35,43 @@ function App() {
     });
   };
 
-  const hideLeadDetails =() => {
-    setShowLeadDetails(false)
-  }
+  const hideLeadDetails = () => {
+    setShowLeadDetails(false);
+  };
 
   return (
     <>
-      <FirstForm loadInitialData={loadInitialData} />
-      <LeadList
-        leadList={leadList}
-        loadInitialData={loadInitialData}
-        getLeadDetail={getLeadDetail}
-        handleShowLeadDetails={setShowLeadDetails}
-      />
+      <Grid container spacing={3}>
+        <Grid item md={12}>
+          <Typography variant="h4" align="center">
+            MY APP
+          </Typography>
+        </Grid>
+        <Grid item md={4}>
+          <Typography variant="h6" align="center">
+            Inserimento Nuovo Lead
+          </Typography>
+          <FirstForm loadInitialData={loadInitialData} />
+        </Grid>
+        <Grid item md={8}>
+          <Typography variant="h6" align="center">
+            Elenco Leads
+          </Typography>
+          <LeadList
+            leadList={leadList}
+            loadInitialData={loadInitialData}
+            getLeadDetail={getLeadDetail}
+            handleShowLeadDetails={setShowLeadDetails}
+          />
+        </Grid>
+      </Grid>
+
       <hr />
-      {showLeadDetails ? <LeadDetails lead={currentLead} hideLeadDetails={hideLeadDetails} /> : <></>}
+      {showLeadDetails ? (
+        <LeadDetails lead={currentLead} hideLeadDetails={hideLeadDetails} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

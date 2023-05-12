@@ -1,27 +1,62 @@
 import React from "react";
 import { deleteLead } from "../api/LeadApi";
+import {
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  List,
+  ListItem
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const LeadList = (payload) => {
-
   const handleDeleteButton = (leadId) => {
     // console.log(leadId)
-    deleteLead({leadId})
-    .then(result => {
-      console.log(result)
-      payload.loadInitialData()
-    })
-  }
+    deleteLead({ leadId }).then((result) => {
+      console.log(result);
+      payload.loadInitialData();
+    });
+  };
 
   return (
-    <>
+    <List>
       {payload.leadList.map((entry) => {
-        return <div>{entry.name} - {entry.leadId} <button onClick={() => handleDeleteButton(entry.leadId)}>Cancella</button> <button onClick={()=>payload.getLeadDetail(entry.leadId)}>Dettagli</button></div>;
+        return (
+          <>
+            <ListItem>
+              <Grid container spacing={3}>
+                <Grid item md={4} display={"flex"} alignItems={"center"}>
+                  {entry.name}
+                </Grid>
+                <Grid item md={2} display={"flex"} alignItems={"center"}>
+                  {entry.leadId}
+                </Grid>
+                <Grid item md={6}>
+                  <IconButton
+                    aria-label="delete"
+                    color="primary"
+                    onClick={() => handleDeleteButton(entry.leadId)}
+                    sx={{
+                      marginRight: "10px",
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                  <Button
+                    variant="outlined"
+                    onClick={() => payload.getLeadDetail(entry.leadId)}
+                  >
+                    Dettagli
+                  </Button>
+                </Grid>
+              </Grid>
+            </ListItem>
+            <Divider />
+          </>
+        );
       })}
-
-      <button onClick={(event) => payload.childParentFunction(event)}>
-        Function
-      </button>
-    </>
+    </List>
   );
 };
 

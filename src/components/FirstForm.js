@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { updateLead } from "../api/LeadApi";
+import { Box, Button, Grid, TextField } from "@mui/material";
 
 const FirstForm = (payload) => {
   let initialLead = {
@@ -11,11 +12,6 @@ const FirstForm = (payload) => {
   };
 
   const [lead, setLead] = useState(initialLead);
-
-  // useEffect(() => {
-  //   console.log("Value of Name: ", name);
-  //   console.log("Value of Email: ", email);
-  // })
 
   useEffect(() => {
     console.log("Inside useEffect", lead);
@@ -52,48 +48,61 @@ const FirstForm = (payload) => {
   };
 
   return (
-    <div>
-      <form>
-        <label>Nome: </label>
-        <input
-          type="text"
-          name="name"
-          onChange={(event) =>
-            setLead({ ...lead, [event.target.name]: event.target.value })
-          }
-        />
-        <br />
-        <br />
-        <label>Responsabile: </label>
-        <input
-          type="text"
-          name="ownerName"
-          onChange={(event) =>
-            setLead({ ...lead, [event.target.name]: event.target.value })
-          }
-        />
-        <br />
-        <br />
-        <label>Tipo: </label>
-        <input
-          type="text"
-          name="type"
-          onChange={(event) =>
-            setLead({ ...lead, [event.target.name]: event.target.value })
-          }
-        />
-        <button
-          onClick={(event) => {
-            validateForm(event);
-          }}
-        >
-          Validate
-        </button>
-      </form>
-
-      <br />
-      <br />
-    </div>
+    <Box
+      sx={{
+        padding: "20px",
+      }}
+    >
+      <Grid container spacing={3}>
+        <Grid item md={12}>
+          <TextField
+            id="name"
+            label="Nome"
+            variant="outlined"
+            name="name"
+            onChange={(event) =>
+              setLead({ ...lead, [event.target.name]: event.target.value })
+            }
+            fullWidth
+          />
+        </Grid>
+        <Grid item md={12}>
+          <TextField
+            id="ownerName"
+            label="Responsabile"
+            variant="outlined"
+            name="ownerName"
+            onChange={(event) =>
+              setLead({ ...lead, [event.target.name]: event.target.value })
+            }
+            fullWidth
+          />
+        </Grid>
+        <Grid item md={12}>
+          <TextField
+            id="type"
+            label="Tipo"
+            variant="outlined"
+            name="type"
+            onChange={(event) =>
+              setLead({ ...lead, [event.target.name]: event.target.value })
+            }
+            fullWidth
+          />
+        </Grid>
+        <Grid item md={12}>
+          <Button
+            variant="contained"
+            onClick={(event) => {
+              validateForm(event);
+            }}
+            fullWidth
+          >
+            Salva
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
