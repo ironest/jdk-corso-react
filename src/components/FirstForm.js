@@ -50,11 +50,11 @@ const FirstForm = (payload) => {
   return (
     <Box
       sx={{
-        padding: "20px",
+        padding: "20px"
       }}
     >
       <Grid container spacing={3}>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <TextField
             id="name"
             label="Nome"
@@ -66,7 +66,7 @@ const FirstForm = (payload) => {
             fullWidth
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <TextField
             id="ownerName"
             label="Responsabile"
@@ -78,7 +78,7 @@ const FirstForm = (payload) => {
             fullWidth
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <TextField
             id="type"
             label="Tipo"
@@ -90,7 +90,7 @@ const FirstForm = (payload) => {
             fullWidth
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Button
             variant="contained"
             onClick={(event) => {
