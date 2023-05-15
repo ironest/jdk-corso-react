@@ -10,10 +10,18 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+let initialLead = {
+  name: '',
+  ownerName: '',
+  type: '',
+  leadId: 0,
+  groupId: 0,
+};
+
 function App() {
   const [leadList, setLeadList] = useState([]);
   const [showLeadDetails, setShowLeadDetails] = useState(false);
-  const [currentLead, setCurrentLead] = useState(null);
+  const [currentLead, setCurrentLead] = useState(initialLead);
 
   useEffect(() => {
     loadInitialData();
@@ -51,7 +59,7 @@ function App() {
           <Typography variant="h6" align="center">
             Inserimento Nuovo Lead
           </Typography>
-          <FirstForm loadInitialData={loadInitialData} />
+          <FirstForm lead={currentLead} loadInitialData={loadInitialData} />
         </Grid>
         <Grid item md={8}>
           <Typography variant="h6" align="center">

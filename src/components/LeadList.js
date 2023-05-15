@@ -1,14 +1,14 @@
 import React from "react";
 import { deleteLead } from "../api/LeadApi";
 import {
-  Button,
   Divider,
   Grid,
   IconButton,
   List,
-  ListItem
+  ListItem,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const LeadList = (payload) => {
   const handleDeleteButton = (leadId) => {
@@ -43,12 +43,14 @@ const LeadList = (payload) => {
                   >
                     <DeleteIcon />
                   </IconButton>
-                  <Button
-                    variant="outlined"
+
+                  <IconButton
+                    aria-label="delete"
+                    color="primary"
                     onClick={() => payload.getLeadDetail(entry.leadId)}
                   >
-                    Dettagli
-                  </Button>
+                    <EditNoteIcon />
+                  </IconButton>
                 </Grid>
               </Grid>
             </ListItem>
