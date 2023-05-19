@@ -1,5 +1,4 @@
 import React from "react";
-import { deleteLead } from "../api/LeadApi";
 import {
   Divider,
   Grid,
@@ -12,11 +11,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const LeadList = (payload) => {
   const handleDeleteButton = (leadId) => {
-    // console.log(leadId)
-    deleteLead({ leadId }).then((result) => {
-      console.log(result);
-      payload.loadInitialData();
-    });
+    payload.deleteLead(leadId);
   };
 
   return (
