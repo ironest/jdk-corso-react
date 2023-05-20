@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 
 const FirstForm = (payload) => {
   const [lead, setLead] = useState(payload?.lead);
@@ -15,13 +10,11 @@ const FirstForm = (payload) => {
 
   const handleResetClick = () => {
     payload.reset();
-    setLead(payload.lead);
-  }
+  };
 
   const handleSaveClick = () => {
-    setLead(lead)
-    payload.validateLead(lead)
-  }
+    payload.validateLead(lead);
+  };
 
   return (
     <>

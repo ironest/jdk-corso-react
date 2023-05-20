@@ -27,7 +27,7 @@ let initialLead = {
 function App() {
   const [leadList, setLeadList] = useState([]);
   const [showLeadDetails, setShowLeadDetails] = useState(false);
-  const [currentLead, setCurrentLead] = useState(initialLead);
+  const [currentLead, setCurrentLead] = useState({...initialLead});
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -57,7 +57,7 @@ function App() {
   };
 
   const resetForm = () => {
-    setCurrentLead(initialLead);
+    setCurrentLead({...initialLead});
   };
 
   const deleteSelectedLead = (leadId) => {
@@ -81,7 +81,6 @@ function App() {
   };
 
   const validateSelectedLead = (lead) => {
-
     if (lead.name === null || lead.name === "") {
       console.log("Name value is not null");
       setSnackbarMessage("Inserire il nome del lead");
