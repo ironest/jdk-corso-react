@@ -1,5 +1,5 @@
 export const BASE_URL = "https://saas.leftsolutions.it";
-export const AUTH = btoa("utente.corso@mail.com:pass4utente");
+export const AUTH = btoa(process.env.REACT_APP_LEFTSOLUTION_AUTH);
 export const JSON_SERVICE_URL = BASE_URL + "/api/jsonws/invoke";
 export const BASE_HEADERS = window.BASE_HEADERS || {
   Accept: "application/json",
