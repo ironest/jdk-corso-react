@@ -1,5 +1,5 @@
 const API_BASE_URL = "https://api.pexels.com/v1/search";
-const API_KEY = "lal1r4wFqrosRQWclwet2KEoCPN92BNa7HajVDBxPUzhQwIV75CYOv5z";
+const API_KEY = process.env.REACT_APP_PEXELS_API_KEY;
 const API_PARAMS = {
   per_page: 1,
   orientation: "landscape",
