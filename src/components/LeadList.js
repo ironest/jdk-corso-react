@@ -20,8 +20,15 @@ const LeadList = (payload) => {
   return (
     <>
       {!payload?.leadList ? (
-        <div style={{ height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <CircularProgress size={120} sx={{alignSelf: 'center'}} />
+        <div
+          style={{
+            height: "90%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress size={120} sx={{ alignSelf: "center" }} />
         </div>
       ) : (
         <List>
@@ -47,12 +54,13 @@ const LeadList = (payload) => {
                       >
                         <DeleteIcon />
                       </IconButton>
-                      <Button
-                        variant="outlined"
+                      <IconButton
+                        aria-label="delete"
+                        color="primary"
                         onClick={() => payload.getLeadDetail(entry.leadId)}
                       >
-                        Dettagli
-                      </Button>
+                        <EditNoteIcon />
+                      </IconButton>
                     </Grid>
                   </Grid>
                 </ListItem>
