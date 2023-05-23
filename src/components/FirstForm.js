@@ -24,7 +24,7 @@ const FirstForm = (payload) => {
         }}
       >
         <Grid container spacing={3}>
-          <Grid item md={12}>
+          <Grid item md={12} sm={4} xs={12}>
             <TextField
               id="name"
               label="Nome"
@@ -37,7 +37,7 @@ const FirstForm = (payload) => {
               value={lead?.name}
             />
           </Grid>
-          <Grid item md={12}>
+          <Grid item md={12} sm={4} xs={12}>
             <TextField
               id="ownerName"
               label="Responsabile"
@@ -50,7 +50,7 @@ const FirstForm = (payload) => {
               value={lead?.ownerName}
             />
           </Grid>
-          <Grid item md={12}>
+          <Grid item md={12} sm={4} xs={12}>
             <TextField
               id="type"
               label="Tipo"
@@ -63,7 +63,7 @@ const FirstForm = (payload) => {
               value={lead?.type}
             />
           </Grid>
-          <Grid item md={6}>
+          <Grid item sm={6} xs={12}>
             <Button
               variant="outlined"
               onClick={(event) => {
@@ -74,7 +74,7 @@ const FirstForm = (payload) => {
               Reset
             </Button>
           </Grid>
-          <Grid item md={6}>
+          <Grid item sm={6} xs={12}>
             <Button
               variant="contained"
               onClick={(event) => {
