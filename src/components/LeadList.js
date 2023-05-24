@@ -82,7 +82,7 @@ const LeadList = (payload) => {
                       <IconButton
                         aria-label="delete"
                         color="primary"
-                        onClick={() => handleDeleteButton(entry.leadId)}
+                        onClick={() => handleModal(entry)}
                         sx={{
                           marginRight: "10px",
                         }}
@@ -98,52 +98,51 @@ const LeadList = (payload) => {
                       </IconButton>
                     </Grid>
                   </Grid>
-    </List>
-      })}
-        );
-          </>
-            </Modal>
-              </Box>
-                </Box>
-                  </Button>
-                    Conferma
-                  >
-                    onClick={() => handleDeleteButton()}
-                    variant="contained"
-                  <Button
-                  </Button>
-                    Annulla
-                  >
-                    }}
-                      setModal({ ...modal, show: false });
-                    onClick={() => {
-                    variant="outlined"
-                  <Button
-                >
-                  }}
-                    justifyContent: "space-around",
-                    display: "flex",
-                    marginTop: "30px",
-                  sx={{
-                <Box
-                </Typography>
-                  {modal.message}
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                </Typography>
-                  {modal.title}
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-              <Box sx={style}>
-            >
-              aria-describedby="modal-modal-description"
-              aria-labelledby="modal-modal-title"
-              }}
-                setModal({ ...modal, show: false });
-              onClose={() => {
-              open={modal.show}
-            <Modal
-
                 </ListItem>
                 <Divider />
+              </>
+            );
+          })}
+        </List>
+      )}
+
+      <Modal
+        open={modal.show}
+        onClose={() => {
+          setModal({ ...modal, show: false });
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {modal.title}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {modal.message}
+          </Typography>
+          <Box
+            sx={{
+              marginTop: "30px",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setModal({ ...modal, show: false });
+              }}
+            >
+              Annulla
+            </Button>
+            <Button variant="contained" onClick={() => handleDeleteButton()}>
+              Conferma
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+    </>
   );
 };
 

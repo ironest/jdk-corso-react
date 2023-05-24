@@ -2,21 +2,25 @@ import FirstForm from "./components/FirstForm";
 import LeadList from "./components/LeadList";
 import LeadDetails from "./components/leadDetails";
 import { useEffect, useState } from "react";
-import { deleteLead, findAll, findByPrimaryKey, updateLead } from "./api/LeadApi";
 import {
+  deleteLead,
   findAll,
   findByPrimaryKey,
-  deleteLead,
   updateLead,
 } from "./api/LeadApi";
 import {
   Alert,
   AppBar,
+  CssBaseline,
+  FormControlLabel,
   Grid,
   IconButton,
   Snackbar,
+  Switch,
+  ThemeProvider,
   Toolbar,
   Typography,
+  createTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -47,7 +51,7 @@ function App() {
 
   const theme = createTheme({
     palette: {
-      mode: darkMode ? "dark" : "light"
+      mode: darkMode ? "dark" : "light",
     },
   });
 
@@ -59,16 +63,18 @@ function App() {
     findAll({}).then((result) => {
       console.log("Risultato ottenuto dalla FETCH", result);
       setLeadList(result);
-      const detailStillValid = result.find(lead => lead.leadId === currentLead?.leadId);
+      const detailStillValid = result.find(
+        (lead) => lead.leadId === currentLead?.leadId
+      );
       if (!detailStillValid) {
-        hideLeadDetails()
+        hideLeadDetails();
       }
     });
   };
 
   const getLeadDetail = (leadId) => {
     setShowLeadDetails(true);
-    setCurrentLead(null)
+    setCurrentLead(null);
     console.log("Chiamata funzione di caricamento dettagli lead", leadId);
     findByPrimaryKey({ id: leadId }).then((result) => {
       setCurrentLead(result);
@@ -163,13 +169,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Grid container spacing={3} padding={2}>
-        <Grid item md={11} xs={10}>
-          <Typography variant="h4" align="center">
-            MY APP
+
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            My App v0.1
           </Typography>
-        </Grid>
-        <Grid item md={1} xs={2} display={"flex"} justifyContent={"end"}>
           <FormControlLabel
             control={
               <Switch
@@ -181,6 +186,14 @@ function App() {
             label={darkMode ? "Dark" : "Light"}
             labelPlacement="start"
           />
+        </Toolbar>
+      </AppBar>
+
+      <Grid container spacing={3} padding={2}>
+        <Grid item xs={12}>
+          <Typography variant="h4" align="center">
+            Lead Control Panel
+          </Typography>
         </Grid>
         <Grid item md={4} xs={12}>
           <Typography variant="h6" align="center">
