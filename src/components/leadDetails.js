@@ -1,13 +1,10 @@
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   CircularProgress,
-  IconButton,
   List,
   ListItem,
   ListItemIcon,
