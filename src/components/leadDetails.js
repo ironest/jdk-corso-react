@@ -40,7 +40,7 @@ const LeadDetails = (payload) => {
       sx={{
         maxWidth: 345,
         minHeight: 372,
-        margin: "40px",
+        marginLeft: "20px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

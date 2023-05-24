@@ -88,6 +88,7 @@ function App() {
 
   const resetForm = () => {
     setCurrentLead({ ...initialLead });
+    hideLeadDetails()
   };
 
   const deleteSelectedLead = (leadId) => {
@@ -216,41 +217,40 @@ function App() {
             deleteLead={deleteSelectedLead}
           />
         </Grid>
-
-        <Snackbar
-          open={snackbarStatus.open}
-          autoHideDuration={snackbarStatus.duration}
-          message="Note archived"
-          onClose={() => {
-            setSnackbarStatus({ ...snackbarStatus, open: false });
-          }}
-        >
-          <Alert
-            severity={snackbarStatus.severity}
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setSnackbarStatus({ ...snackbarStatus, open: false });
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            {snackbarStatus.message}
-          </Alert>
-        </Snackbar>
+        <Grid item xs={12}>
+          {showLeadDetails ? (
+            <LeadDetails lead={currentLead} hideLeadDetails={hideLeadDetails} />
+          ) : (
+            <></>
+          )}
+        </Grid>
       </Grid>
-
-      <hr />
-      {showLeadDetails ? (
-        <LeadDetails lead={currentLead} hideLeadDetails={hideLeadDetails} />
-      ) : (
-        <></>
-      )}
+      <Snackbar
+        open={snackbarStatus.open}
+        autoHideDuration={snackbarStatus.duration}
+        message="Note archived"
+        onClose={() => {
+          setSnackbarStatus({ ...snackbarStatus, open: false });
+        }}
+      >
+        <Alert
+          severity={snackbarStatus.severity}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setSnackbarStatus({ ...snackbarStatus, open: false });
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {snackbarStatus.message}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }
