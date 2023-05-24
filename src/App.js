@@ -8,7 +8,15 @@ import {
   deleteLead,
   updateLead,
 } from "./api/LeadApi";
-import { Alert, Grid, IconButton, Snackbar, Typography } from "@mui/material";
+import {
+  Alert,
+  AppBar,
+  Grid,
+  IconButton,
+  Snackbar,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "@fontsource/roboto/300.css";
@@ -27,13 +35,13 @@ let initialLead = {
 function App() {
   const [leadList, setLeadList] = useState([]);
   const [showLeadDetails, setShowLeadDetails] = useState(false);
-  const [currentLead, setCurrentLead] = useState({...initialLead});
+  const [currentLead, setCurrentLead] = useState({ ...initialLead });
   const [snackbarStatus, setSnackbarStatus] = useState({
     open: false,
-    message: '',
-    severity: 'success',
-    duration: 2000
-  })
+    message: "",
+    severity: "success",
+    duration: 2000,
+  });
 
   useEffect(() => {
     loadInitialData();
@@ -60,7 +68,7 @@ function App() {
   };
 
   const resetForm = () => {
-    setCurrentLead({...initialLead});
+    setCurrentLead({ ...initialLead });
   };
 
   const deleteSelectedLead = (leadId) => {
@@ -68,27 +76,26 @@ function App() {
       loadInitialData();
       setSnackbarStatus({
         open: true,
-        message: 'Cancellazione avvenuta con successo',
-        severity: 'success',
-        duration: 2000
-      })
+        message: "Cancellazione avvenuta con successo",
+        severity: "success",
+        duration: 2000,
+      });
     });
   };
 
   const updateSelectedLead = (lead) => {
     updateLead(lead).then((result) => {
       result?.leadId > 0
-        ?
-        setSnackbarStatus({
-          open: true,
-          message: "Salvataggio avvenuto con successo",
-          severity: 'success',
-          duration: 2000
-        })
+        ? setSnackbarStatus({
+            open: true,
+            message: "Salvataggio avvenuto con successo",
+            severity: "success",
+            duration: 2000,
+          })
         : setSnackbarStatus({
-          ...snackbarStatus,
-          open: false,
-        });
+            ...snackbarStatus,
+            open: false,
+          });
       console.log("Risultato della chiamata rest UPDATE-LEAD", result);
       loadInitialData();
       resetForm();
@@ -96,31 +103,30 @@ function App() {
   };
 
   const validateSelectedLead = (lead) => {
-
     setSnackbarStatus({
       open: true,
-      severity: 'error',
-      duration: 5000
-    })
+      severity: "error",
+      duration: 5000,
+    });
 
     if (lead.name === null || lead.name === "") {
       console.log("Name value is not null");
       setSnackbarStatus({
         ...snackbarStatus,
-        message: 'Inserire il nome del lead',
-      })
+        message: "Inserire il nome del lead",
+      });
     } else if (lead.ownerName === null || lead.ownerName === "") {
       console.log("ownerName value is not null");
       setSnackbarStatus({
         ...snackbarStatus,
         message: "Inserire l'owner del lead",
-      })
+      });
     } else if (lead.type === null || lead.type === "") {
       console.log("Type value is not null");
       setSnackbarStatus({
         ...snackbarStatus,
         message: "Inserire il tipo del lead",
-      })
+      });
     }
     if (
       lead.name !== null &&
@@ -133,7 +139,7 @@ function App() {
       console.log("Dati valorizzati correttamente");
       updateSelectedLead(lead);
     } else {
-      console.log('Validazione fallita');
+      console.log("Validazione fallita");
     }
   };
 
@@ -145,7 +151,7 @@ function App() {
             MY APP
           </Typography>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={4} xs={12}>
           <Typography variant="h6" align="center">
             Inserimento Nuovo Lead
           </Typography>
@@ -155,7 +161,7 @@ function App() {
             validateLead={validateSelectedLead}
           />
         </Grid>
-        <Grid item md={8}>
+        <Grid item md={8} xs={12}>
           <Typography variant="h6" align="center">
             Elenco Leads
           </Typography>
@@ -172,7 +178,7 @@ function App() {
           autoHideDuration={snackbarStatus.duration}
           message="Note archived"
           onClose={() => {
-            setSnackbarStatus({...snackbarStatus, open: false});
+            setSnackbarStatus({ ...snackbarStatus, open: false });
           }}
         >
           <Alert
@@ -183,7 +189,7 @@ function App() {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  setSnackbarStatus({...snackbarStatus, open: false});
+                  setSnackbarStatus({ ...snackbarStatus, open: false });
                 }}
               >
                 <CloseIcon fontSize="inherit" />
@@ -193,7 +199,6 @@ function App() {
             {snackbarStatus.message}
           </Alert>
         </Snackbar>
-
       </Grid>
 
       <hr />
