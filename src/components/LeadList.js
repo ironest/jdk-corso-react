@@ -58,13 +58,13 @@ const LeadList = (payload) => {
           <>
             <ListItem>
               <Grid container spacing={3}>
-                <Grid item md={4} display={"flex"} alignItems={"center"}>
+                <Grid item xs={5} display={"flex"} alignItems={"center"}>
                   {entry.name}
                 </Grid>
-                <Grid item md={2} display={"flex"} alignItems={"center"}>
+                <Grid item xs={4} display={"flex"} alignItems={"center"}>
                   {entry.leadId}
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={3}>
                   <IconButton
                     aria-label="delete"
                     color="primary"
