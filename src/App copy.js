@@ -144,6 +144,69 @@ function App() {
         handleShowLeadDetails={setShowLeadDetails}
         deleteLead={deleteSelectedLead}
       />
+      <Grid container spacing={3}>
+        <Grid item md={12}></Grid>
+        <Grid item md={12}>
+          <Typography variant="h4" align="center">
+            MY APP
+          </Typography>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <Typography variant="h6" align="center">
+            Inserimento Nuovo Lead
+          </Typography>
+          <FirstForm
+            lead={currentLead}
+            reset={resetForm}
+            validateLead={validateSelectedLead}
+          />
+        </Grid>
+        <Grid item md={8} xs={12}>
+          <Typography variant="h6" align="center">
+            Elenco Leads
+          </Typography>
+          <LeadList
+            leadList={leadList}
+            getLeadDetail={getLeadDetail}
+            handleShowLeadDetails={setShowLeadDetails}
+            deleteLead={deleteSelectedLead}
+          />
+        </Grid>
+
+        <Snackbar
+          open={snackbarStatus.open}
+          autoHideDuration={snackbarStatus.duration}
+          message="Note archived"
+          onClose={() => {
+            setSnackbarStatus({ ...snackbarStatus, open: false });
+          }}
+        >
+          <Alert
+            severity={snackbarStatus.severity}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setSnackbarStatus({ ...snackbarStatus, open: false });
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {snackbarStatus.message}
+          </Alert>
+        </Snackbar>
+      </Grid>
+
+      <hr />
+      {showLeadDetails ? (
+        <LeadDetails lead={currentLead} hideLeadDetails={hideLeadDetails} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }
