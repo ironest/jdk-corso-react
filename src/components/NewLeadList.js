@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -35,6 +36,10 @@ const NewLeadList = (props) => {
   useEffect(() => {
     loadInitialList();
   }, []);
+
+  useEffect(() => {
+    loadInitialList();
+  }, [props]);
 
   const loadInitialList = () => {
     findAll({}).then((result) => {
@@ -116,14 +121,27 @@ const NewLeadList = (props) => {
                   width: 250,
                 }}
               >
+                <CardHeader title={entry.name + ' (' + entry.leadId + ')'} />
                 <CardContent>
-                  <Typography variant="h5">
-                    {entry.name}
-                  </Typography>
-                  <Typography variant="p">
-                  {entry.leadId} - {entry.ownerName}
-                  </Typography>
+                  {/* {entry.leadId} - {entry.ownerName} */}
+                  <Grid container>
+                    <Grid item md={12}>
+                      {entry.type}
+                      <Divider />
+                    </Grid>
+                    <Grid item md={12} align='end'>
+                      ({entry.ownerName})
+                    </Grid>
+                  </Grid>
                 </CardContent>
+                <CardActions>
+                  <Button
+                    size="small"
+                    onClick={() => handleDeleteButton(entry)}
+                  >
+                    Delete
+                  </Button>
+                </CardActions>
               </Card>
             </Grid>
           );
@@ -133,9 +151,16 @@ const NewLeadList = (props) => {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        padding: "20px",
+      }}
+    >
       <Button onClick={() => setDisplayMode("list")}>Mostra Lista</Button>
       <Button onClick={() => setDisplayMode("cards")}>Mostra Cards</Button>
+      <br />
+      <br />
+
       {displayMode === "list" ? showList() : showCards()}
       <Dialog
         onClose={() => {
@@ -153,7 +178,7 @@ const NewLeadList = (props) => {
           </Button>
         </DialogContent>
       </Dialog>
-    </>
+    </Box>
   );
 };
 

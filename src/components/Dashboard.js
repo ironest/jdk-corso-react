@@ -1,16 +1,20 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import { Box, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import NewLeadList from "./NewLeadList";
+import NewLeadForm from "./NewLeadForm";
 
 const Dashboard = (props) => {
-  const { leadList, getLeadDetail, handleShowLeadDetails, deleteLead } = props;
+
+  const [statusUpdate, setStatusUpdate] = useState(false);
+
   return (
     <Box>
       <Grid container spacing={3}>
-        <Grid item md={12}>
-          <Typography variant="h1" component="h1">
-            Questa e' la Dashboard
-          </Typography>
+        <Grid item md={6}>
+          <NewLeadForm setStatusUpdate={setStatusUpdate}/>
+        </Grid>
+        <Grid item md={6}>
+          <NewLeadList statusUpdate={statusUpdate} />
         </Grid>
       </Grid>
     </Box>
