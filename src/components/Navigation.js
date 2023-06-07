@@ -25,21 +25,12 @@ const Navigation = (props) => {
           </Toolbar>
         </AppBar>
       </Box>
+
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Dashboard
-              leadList={leadList}
-              getLeadDetail={getLeadDetail}
-              handleShowLeadDetails={handleShowLeadDetails}
-              deleteLead={deleteLead}
-            />
-          }
-        />
-        <Route path="/lead-details" element={<NewLeadDetails />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/lead-details/" element={<NewLeadDetails />} />
         <Route path="/lead-list" element={<NewLeadList />} />
-        
+        <Route path="/lead-details/:leadId" element={<NewLeadDetails />} />
       </Routes>
     </BrowserRouter>
   );

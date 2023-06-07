@@ -26,6 +26,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CategoryIcon from "@mui/icons-material/Category";
 
 import { deleteLead, findAll } from "../api/LeadApi";
+import { Link } from "react-router-dom";
 
 const NewLeadList = (props) => {
   const [leadList, setLeadList] = useState([]);
@@ -71,12 +72,17 @@ const NewLeadList = (props) => {
             <>
               <ListItem>
                 <Grid container spacing={3}>
-                  <Grid item xs={5} display={"flex"} alignItems={"center"}>
+                  <Grid item xs={3} display={"flex"} alignItems={"center"}>
                     {entry.name}
                   </Grid>
-                  <Grid item xs={4} display={"flex"} alignItems={"center"}>
+                  <Grid item xs={3} display={"flex"} alignItems={"center"}>
                     {entry.leadId}
                   </Grid>
+
+                  <Grid item xs={3} display={"flex"} alignItems={"center"}>
+                    <Link to={'/lead-details/' + entry.leadId}>DETTAGLIO</Link>
+                  </Grid>
+
                   <Grid item xs={3}>
                     <IconButton
                       aria-label="delete"
