@@ -193,9 +193,6 @@ const NewLeadList = (props) => {
         </Grid>
       )}
 
-      <br />
-      <br />
-
       {displayMode === "list" ? showList() : showCards()}
 
       <Dialog
