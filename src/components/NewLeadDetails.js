@@ -2,6 +2,7 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   Grid,
   Snackbar,
   TextField,
@@ -41,9 +42,9 @@ const NewLeadDetails = () => {
       if (true) {
         setSnackbarStatus({
           open: true,
-          message: 'Salvataggio completato',
-          severity: 'success'
-        })
+          message: "Salvataggio completato",
+          severity: "success",
+        });
       }
     });
   };
@@ -56,9 +57,9 @@ const NewLeadDetails = () => {
     setOpen(false);
     setSnackbarStatus({
       open: true,
-      message: 'Salvataggio in corso...',
-      severity: 'warning'
-    })
+      message: "Salvataggio in corso...",
+      severity: "warning",
+    });
     updateLead(lead).then((res) => {
       console.log("Lead salvato con dati = ", res);
       initialLoad();
@@ -70,7 +71,11 @@ const NewLeadDetails = () => {
 
   return (
     <>
-      <Box>
+      <Box align='center'>
+        {!currentLead && (
+          <CircularProgress size={80} sx={{ marginTop: '60px' }} />
+        )}
+
         {currentLead && (
           <>
             <Grid container spacing={3} align="center">

@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  CircularProgress,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -14,25 +15,22 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-
-import BusinessIcon from "@mui/icons-material/Business";
-import PersonIcon from "@mui/icons-material/Person";
-import CategoryIcon from "@mui/icons-material/Category";
+import InfoIcon from "@mui/icons-material/Info";
+import AddIcon from "@mui/icons-material/Add";
 
 import { deleteLead, findAll } from "../api/LeadApi";
 import { Link } from "react-router-dom";
+import NewLeadForm from "./NewLeadForm";
 
 const NewLeadList = (props) => {
   const [leadList, setLeadList] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
   const [currentLead, setCurrentLead] = useState(null);
   const [displayMode, setDisplayMode] = useState("list");
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   useEffect(() => {
     loadInitialList();
@@ -43,6 +41,7 @@ const NewLeadList = (props) => {
   }, [props]);
 
   const loadInitialList = () => {
+    setLeadList([])
     findAll({}).then((result) => {
       console.log("Risultato ottenuto dalla FETCH", result);
       setLeadList(result);
@@ -52,6 +51,11 @@ const NewLeadList = (props) => {
   const handleDeleteButton = (lead) => {
     setCurrentLead(lead);
     setShowDialog(true);
+  };
+
+  const handleEditButton = (lead) => {
+    setCurrentLead(lead);
+    setShowEditDialog(true);
   };
 
   const handleDeleteConfirm = (id) => {
@@ -72,26 +76,28 @@ const NewLeadList = (props) => {
             <>
               <ListItem>
                 <Grid container spacing={3}>
-                  <Grid item xs={3} display={"flex"} alignItems={"center"}>
+                  <Grid item xs={5} display={"flex"} alignItems={"center"}>
                     {entry.name}
                   </Grid>
                   <Grid item xs={3} display={"flex"} alignItems={"center"}>
                     {entry.leadId}
                   </Grid>
 
-                  <Grid item xs={3} display={"flex"} alignItems={"center"}>
-                    <Link to={'/lead-details/' + entry.leadId}>DETTAGLIO</Link>
-                  </Grid>
+                  <Grid item xs={4} align="right">
+                    <IconButton
+                      aria-label="info"
+                      color="primary"
+                      component={Link}
+                      to={"/lead-details/" + entry.leadId}
+                    >
+                      <InfoIcon />
+                    </IconButton>
 
-                  <Grid item xs={3}>
                     <IconButton
                       aria-label="delete"
                       color="primary"
                       onClick={() => {
                         handleDeleteButton(entry);
-                      }}
-                      sx={{
-                        marginRight: "10px",
                       }}
                     >
                       <DeleteIcon />
@@ -100,7 +106,7 @@ const NewLeadList = (props) => {
                     <IconButton
                       aria-label="delete"
                       color="primary"
-                      onClick={() => props.getLeadDetail(entry.leadId)}
+                      onClick={() => handleEditButton(entry)}
                     >
                       <EditNoteIcon />
                     </IconButton>
@@ -127,7 +133,7 @@ const NewLeadList = (props) => {
                   width: 250,
                 }}
               >
-                <CardHeader title={entry.name + ' (' + entry.leadId + ')'} />
+                <CardHeader title={entry.name + " (" + entry.leadId + ")"} />
                 <CardContent>
                   {/* {entry.leadId} - {entry.ownerName} */}
                   <Grid container>
@@ -135,7 +141,7 @@ const NewLeadList = (props) => {
                       {entry.type}
                       <Divider />
                     </Grid>
-                    <Grid item md={12} align='end'>
+                    <Grid item md={12} align="end">
                       ({entry.ownerName})
                     </Grid>
                   </Grid>
@@ -158,16 +164,40 @@ const NewLeadList = (props) => {
 
   return (
     <Box
+      align="center"
       sx={{
         padding: "20px",
       }}
     >
-      <Button onClick={() => setDisplayMode("list")}>Mostra Lista</Button>
-      <Button onClick={() => setDisplayMode("cards")}>Mostra Cards</Button>
+      {leadList.length === 0 ? (
+        <CircularProgress size={80} sx={{ marginTop: "60px" }} />
+      ) : (
+        <Grid container spacing={3} align='left'>
+          <Grid item xs={10}>
+            <Button onClick={() => setDisplayMode("list")}>Mostra Lista</Button>
+            <Button onClick={() => setDisplayMode("cards")}>
+              Mostra Cards
+            </Button>
+          </Grid>
+          <Grid item xs={2} align="right">
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                handleEditButton({});
+              }}
+            >
+              <AddIcon />
+            </Button>
+          </Grid>
+        </Grid>
+      )}
+
       <br />
       <br />
 
       {displayMode === "list" ? showList() : showCards()}
+
       <Dialog
         onClose={() => {
           setShowDialog(false);
@@ -182,6 +212,22 @@ const NewLeadList = (props) => {
           >
             Conferma
           </Button>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        onClose={() => {
+          setShowEditDialog(false);
+        }}
+        open={showEditDialog}
+      >
+        <DialogContent>
+          <NewLeadForm
+            lead={currentLead}
+            isModal={true}
+            closeDialog={() => setShowEditDialog(false)}
+            refreshList={() => loadInitialList()}
+          />
         </DialogContent>
       </Dialog>
     </Box>
